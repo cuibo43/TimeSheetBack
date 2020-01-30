@@ -3,4 +3,12 @@ package com.bfs.smarttimesheet.dao;
 import com.bfs.smarttimesheet.domain.WeeklySummary;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface WeeklySummaryDao extends MongoRepository<WeeklySummary, String> {}
+import java.util.List;
+
+public interface WeeklySummaryDao extends MongoRepository<WeeklySummary, String> {
+  List<WeeklySummary> findAllByYearOrderByEndingDateDesc(Integer year);
+
+  List<WeeklySummary> findAllByUsername(String username);
+
+  List<WeeklySummary> findTop5ByOrderByEndingDate();
+}

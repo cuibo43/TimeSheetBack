@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Setter
@@ -17,7 +18,6 @@ import java.util.List;
 @QueryEntity
 @Document(collection = "WeeklySummary")
 public class WeeklySummary {
-
   @Id
   @ApiModelProperty(notes = "The database generated customer ID")
   private String id;
@@ -26,7 +26,7 @@ public class WeeklySummary {
   private String username;
 
   @ApiModelProperty(notes = "Ending date of the week")
-  private String endingDate;
+  private LocalDate endingDate;
 
   @ApiModelProperty(notes = "Weekly total hours")
   private Double totalHours;
@@ -37,7 +37,7 @@ public class WeeklySummary {
   @ApiModelProperty(notes = "Approval status")
   private String approvalStatus;
 
-  @ApiModelProperty(notes = "Comment on weeky summary")
+  @ApiModelProperty(notes = "Comment on weekly summary")
   private String comment;
 
   @ApiModelProperty(notes = "Year")

@@ -3,22 +3,24 @@ package com.bfs.smarttimesheet.domain;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @ToString
 public class Day {
   @ApiModelProperty(notes = "Date of the day")
-  private Timestamp date;
+  private LocalDate date;
 
   @ApiModelProperty(notes = "Starting time of daily shift")
-  private Timestamp startingTime;
+  private LocalTime startingTime;
 
   @ApiModelProperty(notes = "Ending time of daily shift")
-  private Timestamp endingTime;
+  private LocalTime endingTime;
 
   @ApiModelProperty(notes = "Total hours of the day")
   private Double totalHours;

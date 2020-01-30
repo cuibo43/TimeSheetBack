@@ -18,7 +18,7 @@ import java.io.Serializable;
 @Document(collection = "User")
 public class User implements Serializable {
   @Id
-  @ApiModelProperty(notes = "User login username")
+  @ApiModelProperty(notes = "User login username - it is unique")
   private String username;
 
   @ApiModelProperty(notes = "User phone number")

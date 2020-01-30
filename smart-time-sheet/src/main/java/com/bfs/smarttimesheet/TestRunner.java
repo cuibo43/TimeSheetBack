@@ -1,19 +1,30 @@
 package com.bfs.smarttimesheet;
 
 import com.bfs.smarttimesheet.dao.UserDao;
+import com.bfs.smarttimesheet.dao.WeeklySummaryDao;
+import com.bfs.smarttimesheet.domain.Day;
 import com.bfs.smarttimesheet.domain.User;
+import com.bfs.smarttimesheet.domain.WeeklySummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Component
 public class TestRunner implements CommandLineRunner {
 
   @Autowired private UserDao userDao;
 
+  @Autowired private WeeklySummaryDao weeklySummaryDao;
+
   @Override
   public void run(String... args) throws Exception {
     userDao.deleteAll();
+    weeklySummaryDao.deleteAll();
     userDao.save(
         User.builder()
             .username("James")
@@ -48,6 +59,62 @@ public class TestRunner implements CommandLineRunner {
             .role("Team Developer")
             .build());
 
+    List<Day> days = new ArrayList<>();
+    Day monday = new Day();
+    monday.setDate(LocalDate.now());
+    monday.setStartingTime(LocalTime.now());
+    monday.setEndingTime(LocalTime.now());
+    monday.setFloatingDay(false);
+    monday.setHoliday(false);
+    monday.setVacation(false);
+
+    Day tuesday = new Day();
+    tuesday.setDate(LocalDate.now());
+    tuesday.setStartingTime(LocalTime.now());
+    tuesday.setEndingTime(LocalTime.now());
+    tuesday.setFloatingDay(false);
+    tuesday.setHoliday(false);
+    tuesday.setVacation(false);
+
+    days.add(monday);
+    days.add(tuesday);
+
+    weeklySummaryDao.save(
+        WeeklySummary.builder()
+            .username("James")
+            .endingDate(LocalDate.now())
+            .totalHours(30.00)
+            .submissionStatus("Completed")
+            .approvalStatus("N/A")
+            .comment("N/A")
+            .year(2019)
+            .days(days)
+            .build());
+
+    weeklySummaryDao.save(
+        WeeklySummary.builder()
+            .username("David")
+            .endingDate(LocalDate.of(2019, 11, 01))
+            .totalHours(30.00)
+            .submissionStatus("Completed")
+            .approvalStatus("N/A")
+            .comment("N/A")
+            .year(2018)
+            .days(days)
+            .build());
+
+    weeklySummaryDao.save(
+        WeeklySummary.builder()
+            .username("David")
+            .endingDate(LocalDate.of(2019, 10, 01))
+            .totalHours(30.00)
+            .submissionStatus("Completed")
+            .approvalStatus("N/A")
+            .comment("N/A")
+            .year(2018)
+            .days(days)
+            .build());
+
     System.out.println("User found with findAll():");
     System.out.println("-------------------------------");
     for (User user : userDao.findAll()) {
@@ -60,5 +127,17 @@ public class TestRunner implements CommandLineRunner {
     System.out.println("--------------------------------");
     System.out.println(userDao.findByUsername("James").orElse(null));
     System.out.println("\n");
+
+    for (WeeklySummary summary : weeklySummaryDao.findAllByUsername("James")) {
+      System.out.println(summary);
+    }
+    System.out.println("--------------------------------\n");
+    for (WeeklySummary summary : weeklySummaryDao.findTop5ByOrderByEndingDate()) {
+      System.out.println(summary);
+    }
+    System.out.println("--------------------------------\n");
+    for (WeeklySummary summary : weeklySummaryDao.findAllByYearOrderByEndingDateDesc(2018)) {
+      System.out.println(summary);
+    }
   }
 }
