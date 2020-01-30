@@ -21,3 +21,7 @@ spring:
           uri: lb://book-store
           predicates:
             - Path=/book/**
+        - id: smart-time-sheet
+          uri: lb://smart-time-sheet
+          predicates:
+            - Path=/timesheet/**
