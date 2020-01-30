@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface WeeklySummaryDao extends MongoRepository<WeeklySummary, String> {
-  List<WeeklySummary> findAllByYearOrderByEndingDateDesc(Integer year);
+  List<WeeklySummary> findAllByYearOrderByEndingDate(Integer year);
 
   List<WeeklySummary> findAllByUsernameAndYearOrderByEndingDateDesc(String username, Integer year);
 

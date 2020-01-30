@@ -10,32 +10,28 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-
 @Service
 public class WeeklySummaryServiceImpl implements WeeklySummaryService {
 
-    @Autowired
-    private WeeklySummaryDao weeklySummaryDao;
+  @Autowired private WeeklySummaryDao weeklySummaryDao;
 
-    public YearlyVacation vacationLeft(Integer year){
-        List<WeeklySummary> weeklySummaryList=weeklySummaryDao.findByYear(year);
-        YearlyVacation yearlyVacation=new YearlyVacation();
-        int vacation=10;
-        int floatingDay=10;
-        for(WeeklySummary ws:weeklySummaryList){
-            for (Day day:ws.getDays()){
-                if(day.getVacation()==true){
-                    vacation-=1;
-                }
-                if(day.getFloatingDay()==true){
-                    floatingDay-=1;
-                }
-            }
+  public YearlyVacation vacationLeft(Integer year) {
+    List<WeeklySummary> weeklySummaryList = weeklySummaryDao.findAllByYearOrderByEndingDate(year);
+    YearlyVacation yearlyVacation = new YearlyVacation();
+    int vacation = 10;
+    int floatingDay = 10;
+    for (WeeklySummary ws : weeklySummaryList) {
+      for (Day day : ws.getDays()) {
+        if (day.getVacation() == true) {
+          vacation -= 1;
         }
-        yearlyVacation.setFloatingDayLeft(floatingDay);
-        yearlyVacation.setVacationLeft(vacation);
-        return yearlyVacation;
+        if (day.getFloatingDay() == true) {
+          floatingDay -= 1;
+        }
+      }
     }
-
-
+    yearlyVacation.setFloatingDayLeft(floatingDay);
+    yearlyVacation.setVacationLeft(vacation);
+    return yearlyVacation;
+  }
 }
