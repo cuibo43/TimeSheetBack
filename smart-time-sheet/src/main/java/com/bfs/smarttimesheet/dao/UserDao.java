@@ -8,6 +8,5 @@ import java.util.Optional;
 
 public interface UserDao extends MongoRepository<User, String> {
   Optional<User> findByUsername(String username);
-
   List<User> findAllByRole(String role);
 }
