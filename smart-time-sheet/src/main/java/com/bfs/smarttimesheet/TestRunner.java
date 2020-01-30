@@ -38,7 +38,8 @@ public class TestRunner implements CommandLineRunner {
                 .contact2LastName("Lin")
                 .contact2PhoneNumber("1111111111")
             .avatar("Happy Face")
-            .role("user")
+
+            .role("admin")
             .build());
     userDao.save(
             User.builder()
@@ -563,29 +564,31 @@ public class TestRunner implements CommandLineRunner {
 //            .days(days)
 //            .build());
 
-//    System.out.println("User found with findAll():");
-//    System.out.println("-------------------------------");
-//    for (User user : userDao.findAll()) {
-//      System.out.println(user);
-//    }
-//    System.out.println("\n");
-//
-//    // fetch an individual customer
-//    System.out.println("User found with findByUsername('James'):");
-//    System.out.println("--------------------------------");
-//    System.out.println(userDao.findByUsername("James").orElse(null));
-//    System.out.println("\n");
-//
-//    for (WeeklySummary summary : weeklySummaryDao.findAllByUsername("James")) {
-//      System.out.println(summary);
-//    }
-//    System.out.println("--------------------------------\n");
-//    for (WeeklySummary summary : weeklySummaryDao.findTop5ByOrderByEndingDate()) {
-//      System.out.println(summary);
-//    }
-//    System.out.println("--------------------------------\n");
-//    for (WeeklySummary summary : weeklySummaryDao.findAllByYearOrderByEndingDateDesc(2018)) {
-//      System.out.println(summary);
-//    }
+
+    System.out.println("User found with findAll():");
+    System.out.println("-------------------------------");
+    for (User user : userDao.findAll()) {
+      System.out.println(user);
+    }
+    System.out.println("\n");
+
+    // fetch an individual customer
+    System.out.println("User found with findByUsername('James'):");
+    System.out.println("--------------------------------");
+    System.out.println(userDao.findByUsername("James").orElse(null));
+    System.out.println("\n");
+
+    for (WeeklySummary summary : weeklySummaryDao.findAllByUsername("James")) {
+      System.out.println(summary);
+    }
+    System.out.println("--------------------------------\n");
+    for (WeeklySummary summary : weeklySummaryDao.findTop5ByOrderByEndingDate()) {
+      System.out.println(summary);
+    }
+    System.out.println("--------------------------------\n");
+    for (WeeklySummary summary : weeklySummaryDao.findAllByYearOrderByEndingDate(2018)) {
+      System.out.println(summary);
+    }
+
   }
 }

@@ -6,7 +6,7 @@ spring:
     name: smart-time-sheet
 
 server:
-  port: 0
+  port: 8888
 eureka:
   client:
     serviceUrl:
