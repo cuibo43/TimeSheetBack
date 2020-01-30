@@ -20,11 +20,16 @@ public class UserServiceImpl implements UserService {
   @Override
   public List<WeeklySummary> getAllSummaries(String username) {
     Optional<User> opt = userDao.findByUsername(username);
-
     if ("admin".equalsIgnoreCase(opt.get().getRole())) {
       return weeklySummaryDao.findAll();
     } else {
       return weeklySummaryDao.findAllByUsername(username);
     }
+  }
+
+  @Override
+  public Optional<User> getUserInfo(String username) {
+    Optional<User> opt = userDao.findByUsername(username);
+    return opt;
   }
 }
