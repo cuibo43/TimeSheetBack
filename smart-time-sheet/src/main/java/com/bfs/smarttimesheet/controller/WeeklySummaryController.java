@@ -31,7 +31,7 @@ public class WeeklySummaryController {
   @PostMapping("/vacationLeft")
   @ApiOperation(value = "Get available vacation left", response = YearlyVacation.class)
   public YearlyVacation getAvailableVacation(@RequestBody WeeklySummary weeklySummary) {
-    return this.weeklySummaryService.vacationLeft(weeklySummary.getYear());
+    return this.weeklySummaryService.vacationLeft("James",weeklySummary.getYear());
   }
 
 
