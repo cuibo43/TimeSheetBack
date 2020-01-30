@@ -34,7 +34,7 @@ public class TestRunner implements CommandLineRunner {
             .contact1("David")
             .contact2("Lambert")
             .avatar("Happy Face")
-            .role("Team Leader")
+            .role("admin")
             .build());
     userDao.save(
         User.builder()
