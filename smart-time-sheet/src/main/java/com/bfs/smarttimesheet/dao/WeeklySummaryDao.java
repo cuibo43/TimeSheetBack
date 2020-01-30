@@ -8,7 +8,7 @@ import java.util.List;
 public interface WeeklySummaryDao extends MongoRepository<WeeklySummary, String> {
   List<WeeklySummary> findAllByYearOrderByEndingDate(Integer year);
 
-  List<WeeklySummary> findAllByUsernameAndYearOrderByEndingDateDesc(String username, Integer year);
+  List<WeeklySummary> findAllByUsernameAndYear(String username, Integer year);
 
   List<WeeklySummary> findAllByUsername(String username);
 

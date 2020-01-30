@@ -68,7 +68,7 @@ class SmartTimeSheetApplicationTests {
     List<WeeklySummary> weeklySummaries=new ArrayList<>();
     weeklySummaries.add(weeklySummary1);
     weeklySummaries.add(weeklySummary2);
-    when(weeklySummaryDao.findByYear(2019)).thenReturn(weeklySummaries);
+    when(weeklySummaryDao.findAllByYearOrderByEndingDate(2019)).thenReturn(weeklySummaries);
     assertEquals(2, weeklySummaryService.vacationLeft(2019).getFloatingDayLeft());
     assertEquals(8, weeklySummaryService.vacationLeft(2019).getVacationLeft());
 

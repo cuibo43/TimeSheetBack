@@ -18,8 +18,8 @@ public class WeeklySummaryController {
     }
 
 
-    @GetMapping("/vacationLeft")
-    public YearlyVacation getMessage(@RequestBody WeeklySummary ws) {
+    @PostMapping("/vacationLeft")
+    public YearlyVacation getVacationLeft(@RequestBody WeeklySummary ws) {
         return this.weeklySummaryService.vacationLeft(ws.getYear());
     }
 }
