@@ -136,7 +136,7 @@ public class TestRunner implements CommandLineRunner {
       System.out.println(summary);
     }
     System.out.println("--------------------------------\n");
-    for (WeeklySummary summary : weeklySummaryDao.findAllByYearOrderByEndingDateDesc(2018)) {
+    for (WeeklySummary summary : weeklySummaryDao.findAllByYearOrderByEndingDate(2018)) {
       System.out.println(summary);
     }
   }
