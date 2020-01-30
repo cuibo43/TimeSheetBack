@@ -15,8 +15,8 @@ public class WeeklySummaryServiceImpl implements WeeklySummaryService {
 
   @Autowired private WeeklySummaryDao weeklySummaryDao;
 
-  public YearlyVacation vacationLeft(Integer year) {
-    List<WeeklySummary> weeklySummaryList = weeklySummaryDao.findAllByYearOrderByEndingDate(year);
+  public YearlyVacation vacationLeft(String userName, Integer year) {
+    List<WeeklySummary> weeklySummaryList = weeklySummaryDao.findAllByUsernameAndYear(userName,year);
     YearlyVacation yearlyVacation = new YearlyVacation();
     int vacation = 10;
     int floatingDay = 10;
