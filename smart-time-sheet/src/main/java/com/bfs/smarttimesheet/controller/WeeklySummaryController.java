@@ -34,8 +34,8 @@ public class WeeklySummaryController {
   @ApiOperation(value = "Get Weekly Summary By Id", response = WeeklySummary.class)
   public WeeklySummary getWeeklySummaryById(@RequestBody LocalDate endTime) {
     System.out.println(endTime);
-    System.out.println(weeklySummaryService.getWeeklySummaryById("David",endTime));
-    return weeklySummaryService.getWeeklySummaryById("David",endTime);
+    System.out.println(weeklySummaryService.getWeeklySummaryById("David", endTime));
+    return weeklySummaryService.getWeeklySummaryById("David", endTime);
   }
 
   @PostMapping("/updateSummary")
@@ -49,9 +49,8 @@ public class WeeklySummaryController {
   @ApiOperation(value = "Get available vacation left", response = YearlyVacation.class)
   public YearlyVacation getAvailableVacation(@RequestBody WeeklySummary weeklySummary) {
     // hardcode username, needs to replace
-    return this.weeklySummaryService.vacationLeft("David",weeklySummary.getYear());
+    return this.weeklySummaryService.vacationLeft("David", weeklySummary.getYear());
   }
-
 
   @GetMapping("/all")
   @ApiOperation(value = "List all weekly summaries", response = Iterable.class)

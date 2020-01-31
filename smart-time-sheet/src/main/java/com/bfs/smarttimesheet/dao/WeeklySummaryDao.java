@@ -10,8 +10,8 @@ import java.util.Optional;
 public interface WeeklySummaryDao extends MongoRepository<WeeklySummary, String> {
 
   List<WeeklySummary> findAllByUsernameAndYear(String username, Integer year);
+
   List<WeeklySummary> findAllByUsernameOrderByEndingDateDesc(String username);
-  Optional<WeeklySummary> findByUsernameAndEndingDate(String useName, LocalDate EndingDate);
 
-
+  Optional<WeeklySummary> findByUsernameAndEndingDate(String username, LocalDate endingDate);
 }
