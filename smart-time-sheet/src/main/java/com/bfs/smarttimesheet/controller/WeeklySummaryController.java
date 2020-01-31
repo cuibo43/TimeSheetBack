@@ -34,8 +34,9 @@ public class WeeklySummaryController {
   @ApiOperation(value = "Get Weekly Summary By Id", response = WeeklySummary.class)
   public WeeklySummary getWeeklySummaryById(@RequestBody LocalDate endTime) {
     System.out.println(endTime);
-    System.out.println(weeklySummaryService.getWeeklySummaryById("David", endTime));
-    return weeklySummaryService.getWeeklySummaryById("David", endTime);
+    System.out.println(
+        weeklySummaryService.getWeeklySummaryByUsernameAndEndingDate("David", endTime));
+    return weeklySummaryService.getWeeklySummaryByUsernameAndEndingDate("David", endTime);
   }
 
   @PostMapping("/updateSummary")
