@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     if ("admin".equalsIgnoreCase(opt.get().getRole())) {
       return weeklySummaryDao.findAll();
     } else {
-      return weeklySummaryDao.findAllByUsername(username);
+      return weeklySummaryDao.findAllByUsernameOrderByEndingDateDesc(username);
     }
   }
 
