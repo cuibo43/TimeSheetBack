@@ -7,8 +7,10 @@ import com.bfs.smarttimesheet.service.WeeklySummaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -28,10 +30,26 @@ public class WeeklySummaryController {
     this.weeklySummaryService = weeklySummaryService;
   }
 
+  @PostMapping("/getSummary")
+  @ApiOperation(value = "Get Weekly Summary By Id", response = WeeklySummary.class)
+  public WeeklySummary getWeeklySummaryById(@RequestBody LocalDate endTime) {
+    System.out.println(endTime);
+    System.out.println(weeklySummaryService.getWeeklySummaryById("David",endTime));
+    return weeklySummaryService.getWeeklySummaryById("David",endTime);
+  }
+
+  @PostMapping("/updateSummary")
+  @ApiOperation(value = "Update Weekly Summary", response = ResponseEntity.class)
+  public ResponseEntity<String> UpdateWeeklySummary(@RequestBody WeeklySummary weeklySummary) {
+    weeklySummaryService.updateWeeklySummary(weeklySummary);
+    return ResponseEntity.ok("Successfully Update");
+  }
+
   @PostMapping("/vacationLeft")
   @ApiOperation(value = "Get available vacation left", response = YearlyVacation.class)
   public YearlyVacation getAvailableVacation(@RequestBody WeeklySummary weeklySummary) {
-    return this.weeklySummaryService.vacationLeft("James",weeklySummary.getYear());
+    // hardcode username, needs to replace
+    return this.weeklySummaryService.vacationLeft("David",weeklySummary.getYear());
   }
 
 
