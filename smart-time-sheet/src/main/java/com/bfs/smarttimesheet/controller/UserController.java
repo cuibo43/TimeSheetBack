@@ -23,7 +23,7 @@ public class UserController {
         this.userService = userService;
     }
 
-    @PostMapping("/detail")
+    @GetMapping("/detail")
     @ApiOperation(value = "Get user information detail", response = Iterable.class)
     public Optional<User> getUserInfo() {
         return userService.getUserInfo("David");
