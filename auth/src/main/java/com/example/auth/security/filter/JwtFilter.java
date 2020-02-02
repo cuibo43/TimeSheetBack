@@ -14,20 +14,23 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 public class JwtFilter extends OncePerRequestFilter {
-    private JwtTokenProvider jwtTokenProvider;
-    @Autowired
-    AuthenticationManager authenticationManager;
+  @Autowired AuthenticationManager authenticationManager;
+  private JwtTokenProvider jwtTokenProvider;
 
-    public JwtFilter(JwtTokenProvider jwtTokenProvider) {
-        this.jwtTokenProvider = jwtTokenProvider;
-    }
+  public JwtFilter(JwtTokenProvider jwtTokenProvider) {
+    this.jwtTokenProvider = jwtTokenProvider;
+  }
 
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
-        String token = this.jwtTokenProvider.resolveToken(httpServletRequest);
-        if (token != null) {
-            Authentication auth = this.jwtTokenProvider.getAuthentication(token);
-            SecurityContextHolder.getContext().setAuthentication(auth);
-        }
-        filterChain.doFilter(httpServletRequest, httpServletResponse);
+  protected void doFilterInternal(
+      HttpServletRequest httpServletRequest,
+      HttpServletResponse httpServletResponse,
+      FilterChain filterChain)
+      throws ServletException, IOException {
+    String token = this.jwtTokenProvider.resolveToken(httpServletRequest);
+    if (token != null) {
+      Authentication auth = this.jwtTokenProvider.getAuthentication(token);
+      SecurityContextHolder.getContext().setAuthentication(auth);
     }
+    filterChain.doFilter(httpServletRequest, httpServletResponse);
+  }
 }

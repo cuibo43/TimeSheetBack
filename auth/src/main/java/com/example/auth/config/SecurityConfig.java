@@ -18,42 +18,44 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @ComponentScan(basePackages = {"com.example.auth.service"})
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private JwtTokenProvider jwtTokenProvider;
+  @Autowired private JwtTokenProvider jwtTokenProvider;
 
-    @Qualifier("userServiceImpl")
-    @Autowired
-    private UserDetailsService userDetailsService;
+  @Qualifier("userServiceImpl")
+  @Autowired
+  private UserDetailsService userDetailsService;
 
-    public SecurityConfig() {
-    }
+  public SecurityConfig() {}
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(this.userDetailsService).passwordEncoder(this.passwordEncoder());
-    }
+  @Autowired
+  public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+    auth.userDetailsService(this.userDetailsService).passwordEncoder(this.passwordEncoder());
+  }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 
-    @Bean
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
+  @Bean
+  public AuthenticationManager authenticationManagerBean() throws Exception {
+    return super.authenticationManagerBean();
+  }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .httpBasic().disable()
-                .csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/auth/signin").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .apply(new JwtConfig(jwtTokenProvider));
-    }
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+    http.httpBasic()
+        .disable()
+        .csrf()
+        .disable()
+        .sessionManagement()
+        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        .and()
+        .authorizeRequests()
+        .antMatchers("/auth/signin")
+        .permitAll()
+        .anyRequest()
+        .authenticated()
+        .and()
+        .apply(new JwtConfig(jwtTokenProvider));
+  }
 }

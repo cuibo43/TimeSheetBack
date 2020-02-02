@@ -11,26 +11,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserDetailsService {
-    private UserDAO userDAO;
+  private UserDAO userDAO;
 
-    @Autowired
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
-    }
+  @Autowired
+  public void setUserDAO(UserDAO userDAO) {
+    this.userDAO = userDAO;
+  }
 
+  @Transactional
+  @Override
+  public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    return this.userDAO.findByUsername(s);
+  }
 
-    @Transactional
-    @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException
-    {
-        return (UserDetails)this.userDAO.findByUsername(s);
-    }
-
-    @Transactional
-    public userInformation getUserByUsername(String s)
-    {
-        return this.userDAO.findByUsername(s);
-    }
-
-
+  @Transactional
+  public userInformation getUserByUsername(String s) {
+    return this.userDAO.findByUsername(s);
+  }
 }
