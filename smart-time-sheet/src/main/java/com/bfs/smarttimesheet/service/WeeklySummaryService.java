@@ -7,7 +7,8 @@ import java.time.LocalDate;
 
 public interface WeeklySummaryService {
   YearlyVacation vacationLeft(String userName, Integer year);
-  void updateWeeklySummary(WeeklySummary weeklySummary);
-  WeeklySummary getWeeklySummaryById(String useName, LocalDate EndingDateD);
 
+  void updateWeeklySummary(WeeklySummary weeklySummary);
+
+  WeeklySummary getWeeklySummaryByUsernameAndEndingDate(String username, LocalDate endingDate);
 }
