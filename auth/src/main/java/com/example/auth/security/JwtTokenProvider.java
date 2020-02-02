@@ -19,45 +19,56 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
-    @Value("${security.jwt.token.secret-key:secret}")
-    private String secretKey = "secret";
-    @Value("${security.jwt.token.expire-length:3600000}")
-    private long validityInMilliseconds = 3600000L;
+  @Value("${security.jwt.token.secret-key:secret}")
+  private String secretKey = "secret";
 
-    @Qualifier("userServiceImpl")
-    @Autowired
-    private UserDetailsService userDetailsService;
+  @Value("${security.jwt.token.expire-length:3600000}")
+  private long validityInMilliseconds = 3600000L;
 
-    public JwtTokenProvider() {
-    }
+  @Qualifier("userServiceImpl")
+  @Autowired
+  private UserDetailsService userDetailsService;
 
-    @PostConstruct
-    protected void init() {
-        this.secretKey = Base64.getEncoder().encodeToString(this.secretKey.getBytes());
-    }
+  public JwtTokenProvider() {}
 
-    public String createToken(String username) {
-        Claims claims = Jwts.claims().setSubject(username);
-        Date now = new Date();
-        Date validity = new Date(now.getTime() + this.validityInMilliseconds);
-        System.out.println(Jwts.builder().setClaims(claims).setIssuedAt(now).setExpiration(validity).signWith(SignatureAlgorithm.HS256, this.secretKey).compact());
-        return Jwts.builder().setClaims(claims).setIssuedAt(now).setExpiration(validity).signWith(SignatureAlgorithm.HS256, this.secretKey).compact();
-    }
+  @PostConstruct
+  protected void init() {
+    this.secretKey = Base64.getEncoder().encodeToString(this.secretKey.getBytes());
+  }
 
-    public Authentication getAuthentication(String token) {
-        UserDetails userDetails = this.userDetailsService.loadUserByUsername(this.getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-    }
+  public String createToken(String username) {
+    Claims claims = Jwts.claims().setSubject(username);
+    Date now = new Date();
+    Date validity = new Date(now.getTime() + this.validityInMilliseconds);
+    System.out.println(
+        Jwts.builder()
+            .setClaims(claims)
+            .setIssuedAt(now)
+            .setExpiration(validity)
+            .signWith(SignatureAlgorithm.HS256, this.secretKey)
+            .compact());
+    return Jwts.builder()
+        .setClaims(claims)
+        .setIssuedAt(now)
+        .setExpiration(validity)
+        .signWith(SignatureAlgorithm.HS256, this.secretKey)
+        .compact();
+  }
 
-    public String getUsername(String token) {
-        return ((Claims)Jwts.parser().setSigningKey(this.secretKey).parseClaimsJws(token).getBody()).getSubject();
-    }
+  public Authentication getAuthentication(String token) {
+    UserDetails userDetails = this.userDetailsService.loadUserByUsername(this.getUsername(token));
+    return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+  }
 
-    public String resolveToken(HttpServletRequest req) {
-        String bearerToken = req.getHeader("Authorization");
-        return bearerToken != null && bearerToken.startsWith("Bearer ") ? bearerToken.substring(7) : null;
-    }
+  public String getUsername(String token) {
+    return Jwts.parser().setSigningKey(this.secretKey).parseClaimsJws(token).getBody()
+        .getSubject();
+  }
 
-
+  public String resolveToken(HttpServletRequest req) {
+    String bearerToken = req.getHeader("Authorization");
+    return bearerToken != null && bearerToken.startsWith("Bearer ")
+        ? bearerToken.substring(7)
+        : null;
+  }
 }
-

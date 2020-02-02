@@ -15,33 +15,27 @@ import java.util.List;
 @Repository
 public class UserDAOImpl extends AbstractHibernateDAO implements UserDAO {
 
-    private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-    public UserDAOImpl() {
-        setClazz(userInformation.class);
-    }
+  private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    @Override
-    public userInformation findByUsername(String userName){
-        Session session = getCurrentSession();
-        CriteriaBuilder cb = session.getCriteriaBuilder();
-        CriteriaQuery<userInformation> cq = cb.createQuery(userInformation.class);
-        Root<User> uRoot = cq.from(User.class);
-        cq.multiselect(
-                uRoot.get("UserName"),
-                uRoot.get("Password"),
-                uRoot.get("ID")
-        );
-        cq.where(
-                cb.equal(uRoot.get("UserName"), userName)
-        );
-        List<userInformation> userInformationList =session.createQuery(cq).getResultList();
-        if (userInformationList.isEmpty()){
-            return null;
-        }
-        else{
-            userInformation ui=userInformationList.get(0);
-            ui.setPassword(passwordEncoder.encode(ui.getPassword()));
-            return userInformationList.get(0);
-        }
+  public UserDAOImpl() {
+    setClazz(userInformation.class);
+  }
+
+  @Override
+  public userInformation findByUsername(String userName) {
+    Session session = getCurrentSession();
+    CriteriaBuilder cb = session.getCriteriaBuilder();
+    CriteriaQuery<userInformation> cq = cb.createQuery(userInformation.class);
+    Root<User> uRoot = cq.from(User.class);
+    cq.multiselect(uRoot.get("UserName"), uRoot.get("Password"), uRoot.get("ID"));
+    cq.where(cb.equal(uRoot.get("UserName"), userName));
+    List<userInformation> userInformationList = session.createQuery(cq).getResultList();
+    if (userInformationList.isEmpty()) {
+      return null;
+    } else {
+      userInformation ui = userInformationList.get(0);
+      ui.setPassword(passwordEncoder.encode(ui.getPassword()));
+      return userInformationList.get(0);
     }
+  }
 }
