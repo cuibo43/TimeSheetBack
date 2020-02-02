@@ -13,15 +13,14 @@ spring:
   cloud:
     gateway:
       routes:
-        - id: movie-store
-          uri: lb://movie-store
-          predicates:
-            - Path=/movie/**
-        - id: book-store
-          uri: lb://book-store
-          predicates:
-            - Path=/book/**
         - id: smart-time-sheet
           uri: lb://smart-time-sheet
           predicates:
-            - Path=/timesheet/**
+            - Path=/summary/**
+        - id: auth
+          uri: lb://auth
+          predicates:
+            - Path=/auth/**
+
+
+

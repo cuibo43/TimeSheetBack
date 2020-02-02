@@ -1,5 +1,6 @@
 package com.bfs.smarttimesheet.controller;
 
+import com.bfs.smarttimesheet.client.AuthClient;
 import com.bfs.smarttimesheet.domain.WeeklySummary;
 import com.bfs.smarttimesheet.responseDomain.YearlyVacation;
 import com.bfs.smarttimesheet.service.UserService;
@@ -21,6 +22,9 @@ public class WeeklySummaryController {
   private UserService userService;
 
   @Autowired
+  private AuthClient authClient;
+
+  @Autowired
   public void setUserService(UserService userService) {
     this.userService = userService;
   }
@@ -32,31 +36,52 @@ public class WeeklySummaryController {
 
   @PostMapping("/getSummary")
   @ApiOperation(value = "Get Weekly Summary By Id", response = WeeklySummary.class)
-  public WeeklySummary getWeeklySummaryById(@RequestBody LocalDate endTime) {
-    System.out.println(endTime);
-    System.out.println(weeklySummaryService.getWeeklySummaryById("David",endTime));
-    return weeklySummaryService.getWeeklySummaryById("David",endTime);
+  public WeeklySummary getWeeklySummaryById(@RequestBody LocalDate endTime,@RequestHeader("Authorization") String token) {
+    try {
+      String userName = authClient.getMessage(token).getBody();
+    return weeklySummaryService.getWeeklySummaryById(userName,endTime);}
+    catch(Exception e){
+      return null;
+    }
+
   }
 
   @PostMapping("/updateSummary")
   @ApiOperation(value = "Update Weekly Summary", response = ResponseEntity.class)
-  public ResponseEntity<String> UpdateWeeklySummary(@RequestBody WeeklySummary weeklySummary) {
-    weeklySummaryService.updateWeeklySummary(weeklySummary);
-    return ResponseEntity.ok("Successfully Update");
+  public ResponseEntity<String> UpdateWeeklySummary(@RequestBody WeeklySummary weeklySummary,@RequestHeader("Authorization") String token) {
+    try {
+      authClient.getMessage(token).getBody();
+      weeklySummaryService.updateWeeklySummary(weeklySummary);
+      return ResponseEntity.ok("Successfully Update");    }
+    catch(Exception e){
+      return ResponseEntity.ok("Fail");     }
+
+
   }
 
   @PostMapping("/vacationLeft")
   @ApiOperation(value = "Get available vacation left", response = YearlyVacation.class)
-  public YearlyVacation getAvailableVacation(@RequestBody WeeklySummary weeklySummary) {
-    // hardcode username, needs to replace
-    return this.weeklySummaryService.vacationLeft("David",weeklySummary.getYear());
+  public YearlyVacation getAvailableVacation(@RequestBody WeeklySummary weeklySummary,@RequestHeader("Authorization") String token) {
+    try {
+      String userName = authClient.getMessage(token).getBody();
+      return this.weeklySummaryService.vacationLeft(userName, weeklySummary.getYear());
+    }
+    catch(Exception e){
+      return null;
+    }
   }
 
 
-  @GetMapping("/all")
+  @PostMapping("/all")
   @ApiOperation(value = "List all weekly summaries", response = Iterable.class)
-  public List<WeeklySummary> getAllSummaries() {
-    // hardcode username, needs to replace
-    return userService.getAllSummaries("David");
+  public List<WeeklySummary> getAllSummaries(@RequestHeader("Authorization") String token) {
+    try {
+      String userName = authClient.getMessage(token).getBody();
+      return userService.getAllSummaries(userName);
+    }
+    catch(Exception e){
+      return null;
+    }
+
   }
 }
