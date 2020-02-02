@@ -1,6 +1,6 @@
 spring:
   application:
-    name: book-store
+    name: auth
 
 server:
   port: 0
@@ -9,3 +9,5 @@ eureka:
   client:
     serviceUrl:
       defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+
+
