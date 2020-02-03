@@ -32,4 +32,9 @@ public class UserServiceImpl implements UserService {
     Optional<User> opt = userDao.findByUsername(username);
     return opt;
   }
+
+  @Override
+  public void saveUserInfo(User user) {
+
+  }
 }
