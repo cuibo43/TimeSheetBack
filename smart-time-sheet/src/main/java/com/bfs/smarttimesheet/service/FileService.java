@@ -8,6 +8,4 @@ public interface FileService {
     void storeFile(MultipartFile file) throws IOException;
 
     void storePic(MultipartFile file) throws IOException;
-
-    //    Resource getFileSystem(String filename, HttpServletResponse response);
 }

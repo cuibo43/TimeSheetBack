@@ -18,15 +18,9 @@ import java.util.List;
 @Api(value = "Weekly Summary Controller")
 public class WeeklySummaryController {
   private WeeklySummaryService weeklySummaryService;
-//  private UserService userService;
 
   @Autowired
   private AuthClient authClient;
-
-//  @Autowired
-//  public void setUserService(UserService userService) {
-//    this.userService = userService;
-//  }
 
   @Autowired
   public void setWeeklySummaryService(WeeklySummaryService weeklySummaryService) {

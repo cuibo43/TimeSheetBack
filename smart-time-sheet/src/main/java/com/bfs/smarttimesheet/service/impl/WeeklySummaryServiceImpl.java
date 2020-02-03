@@ -55,11 +55,11 @@ public class WeeklySummaryServiceImpl implements WeeklySummaryService {
 
   @Override
   public List<WeeklySummary> getAllSummaries(String username) {
-//    Optional<User> opt = userDao.findByUsername(username);
-//    if ("admin".equalsIgnoreCase(opt.get().getRole())) {
-//      return weeklySummaryDao.findAll();
-//    } else {
-    return weeklySummaryDao.findAllByUsernameOrderByEndingDateDesc(username);
-//    }
+      //    Optional<User> opt = userDao.findByUsername(username);
+      //    if ("admin".equalsIgnoreCase(opt.get().getRole())) {
+      //      return weeklySummaryDao.findAll();
+      //    } else {
+      return weeklySummaryDao.findAllByUsernameOrderByEndingDateDesc(username);
+      //    }
   }
 }

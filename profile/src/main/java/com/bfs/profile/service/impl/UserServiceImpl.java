@@ -13,17 +13,6 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserDao userDao;
-//    @Autowired private WeeklySummaryDao weeklySummaryDao;
-
-//    @Override
-//    public List<WeeklySummary> getAllSummaries(String username) {
-//        Optional<User> opt = userDao.findByUsername(username);
-//        if ("admin".equalsIgnoreCase(opt.get().getRole())) {
-//            return weeklySummaryDao.findAll();
-//        } else {
-//            return weeklySummaryDao.findAllByUsernameOrderByEndingDateDesc(username);
-//        }
-//    }
 
     @Override
     public Optional<User> getUserInfo(String username) {
