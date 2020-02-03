@@ -3,7 +3,6 @@ package com.bfs.smarttimesheet.controller;
 import com.bfs.smarttimesheet.client.AuthClient;
 import com.bfs.smarttimesheet.domain.WeeklySummary;
 import com.bfs.smarttimesheet.responseDomain.YearlyVacation;
-import com.bfs.smarttimesheet.service.UserService;
 import com.bfs.smarttimesheet.service.WeeklySummaryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,14 +18,15 @@ import java.util.List;
 @Api(value = "Weekly Summary Controller")
 public class WeeklySummaryController {
   private WeeklySummaryService weeklySummaryService;
-  private UserService userService;
-
-  @Autowired private AuthClient authClient;
+//  private UserService userService;
 
   @Autowired
-  public void setUserService(UserService userService) {
-    this.userService = userService;
-  }
+  private AuthClient authClient;
+
+//  @Autowired
+//  public void setUserService(UserService userService) {
+//    this.userService = userService;
+//  }
 
   @Autowired
   public void setWeeklySummaryService(WeeklySummaryService weeklySummaryService) {
@@ -36,7 +36,7 @@ public class WeeklySummaryController {
   @PostMapping("/getSummary")
   @ApiOperation(value = "Get Weekly Summary By Id", response = WeeklySummary.class)
   public WeeklySummary getWeeklySummaryById(
-      @RequestBody LocalDate endTime, @RequestHeader("Authorization") String token) {
+          @RequestBody LocalDate endTime, @RequestHeader("Authorization") String token) {
     try {
       String userName = authClient.getMessage(token).getBody();
       return weeklySummaryService.getWeeklySummaryByUsernameAndEndingDate(userName, endTime);
@@ -75,7 +75,7 @@ public class WeeklySummaryController {
   public List<WeeklySummary> getAllSummaries(@RequestHeader("Authorization") String token) {
     try {
       String userName = authClient.getMessage(token).getBody();
-      return userService.getAllSummaries(userName);
+      return weeklySummaryService.getAllSummaries(userName);
     } catch (Exception e) {
       return null;
     }

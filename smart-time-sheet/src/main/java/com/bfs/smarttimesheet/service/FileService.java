@@ -6,7 +6,8 @@ import java.io.IOException;
 
 public interface FileService {
     void storeFile(MultipartFile file) throws IOException;
+
     void storePic(MultipartFile file) throws IOException;
 
-}
 
+}
