@@ -21,6 +21,10 @@ spring:
           uri: lb://auth
           predicates:
             - Path=/auth/**
+        - id: profile
+          uri: lb://profile
+          predicates:
+            - Path=/profile/**
 
 
 
