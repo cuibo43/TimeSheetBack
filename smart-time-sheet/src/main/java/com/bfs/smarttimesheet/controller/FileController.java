@@ -17,9 +17,6 @@ public class FileController {
     private final FileService fileService;
 
     @Autowired
-    private ServletContext servletContext;
-
-    @Autowired
     public FileController(FileService fileService) {
         this.fileService = fileService;
     }
@@ -27,16 +24,16 @@ public class FileController {
     @PostMapping(value = "/summary/files")
     @ResponseStatus(HttpStatus.OK)
     public void handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
-        servletContext.setAttribute("file",file.getOriginalFilename());
-        System.out.println((String)servletContext.getAttribute("file"));
         fileService.storeFile(file);
     }
 
-//    @GetMapping(value = "/files/system/{filename}", produces = "text/csv; charset=utf-8")
-//    @ResponseStatus(HttpStatus.OK)
-//    public Resource getFileFromFileSystem(@PathVariable String filename, HttpServletResponse response) {
-//        return fileService.getFileSystem(filename,response);
-//    }
+    @PostMapping(value = "/summary/pic")
+    @ResponseStatus(HttpStatus.OK)
+    public void handlePicUpload(@RequestParam("file") MultipartFile file) throws IOException {
+        fileService.storePic(file);
+    }
+
+
 
 
 
