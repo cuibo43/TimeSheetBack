@@ -22,8 +22,6 @@ public class UserController {
   private AuthClient authClient;
 
 
-    @Autowired private AuthClient authClient;
-
     @Autowired
     public void setUserService(UserService userService) {
         this.userService = userService;
@@ -43,15 +41,16 @@ public class UserController {
 
     @PostMapping("/updateDetail")
     @ApiOperation(value = "Save user information detail", response = ResponseEntity.class)
-    public ResponseEntity<String> saveUserInfo(
-        @RequestBody User user, @RequestHeader("Authorization") String token) {
-            try {
-                authClient.getMessage(token).getBody();
-                userService.saveUserInfo(user);
-                return ResponseEntity.ok("Successfully Update");
-            } catch (Exception e) {
-                return ResponseEntity.ok("Fail");
-            }
-        }
+    public ResponseEntity<String> saveUserInfo(@RequestBody User user)
+    { userService.saveUserInfo(user);  return ResponseEntity.ok("Successfully Update");}
+//        , @RequestHeader("Authorization") String token) {
+//            try {
+//                authClient.getMessage(token).getBody();
+
+//                return ResponseEntity.ok("Successfully Update");
+//            } catch (Exception e) {
+//                return ResponseEntity.ok("Fail");
+//            }
+//        }
 
 }

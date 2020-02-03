@@ -35,6 +35,6 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public void saveUserInfo(User user) {
-
+    userDao.save(user);
   }
 }
