@@ -18,12 +18,15 @@ public class userInformation implements java.io.Serializable, UserDetails {
   private String password;
   private Integer userID;
   private List<String> roles = new ArrayList();
+
   public userInformation() {}
+
   public userInformation(String username, String password, Integer userID) {
     this.username = username;
     this.password = password;
     this.userID = userID;
   }
+
   public userInformation(String username, String password) {
     this.username = username;
     this.password = password;

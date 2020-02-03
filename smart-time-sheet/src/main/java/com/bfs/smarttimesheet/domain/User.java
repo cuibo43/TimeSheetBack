@@ -32,16 +32,19 @@ public class User implements Serializable {
 
   @ApiModelProperty(notes = "Contact 1 first name")
   private String contact1FirstName;
+
   @ApiModelProperty(notes = "Contact 1 last name")
   private String contact1LastName;
+
   @ApiModelProperty(notes = "Contact 1 phone number")
   private String contact1PhoneNumber;
 
-
   @ApiModelProperty(notes = "Contact 2 first name")
   private String contact2FirstName;
+
   @ApiModelProperty(notes = "Contact 2 last name")
   private String contact2LastName;
+
   @ApiModelProperty(notes = "Contact 2 phone number")
   private String contact2PhoneNumber;
 
