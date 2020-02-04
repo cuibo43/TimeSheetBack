@@ -15,36 +15,35 @@ import java.util.Optional;
 @RequestMapping("/profile")
 @Api(value = "User Controller")
 public class UserController {
-    private UserService userService;
-    @Autowired
-    private AuthClient authClient;
+  private UserService userService;
+  @Autowired private AuthClient authClient;
 
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+  @Autowired
+  public void setUserService(UserService userService) {
+    this.userService = userService;
+  }
 
-    @PostMapping("/detail")
-    @ApiOperation(value = "Get user information detail", response = User.class)
-    public Optional<User> getUserInfo(@RequestHeader("Authorization") String token) {
-        try {
-            String userName = authClient.getMessage(token).getBody();
-            return userService.getUserInfo(userName);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+  @PostMapping("/detail")
+  @ApiOperation(value = "Get user information detail", response = User.class)
+  public Optional<User> getUserInfo(@RequestHeader("Authorization") String token) {
+    try {
+      String userName = authClient.getMessage(token).getBody();
+      return userService.getUserInfo(userName);
+    } catch (Exception e) {
+      return Optional.empty();
     }
+  }
 
-    @PostMapping("/updateDetail")
-    @ApiOperation(value = "Save user information detail", response = ResponseEntity.class)
-    public ResponseEntity<String> saveUserInfo(
-            @RequestBody User user, @RequestHeader("Authorization") String token) {
-        try {
-            authClient.getMessage(token).getBody();
-            userService.saveUserInfo(user);
-            return ResponseEntity.ok("Successfully Update");
-        } catch (Exception e) {
-            return ResponseEntity.ok("Fail");
-        }
+  @PostMapping("/updateDetail")
+  @ApiOperation(value = "Save user information detail", response = ResponseEntity.class)
+  public ResponseEntity<String> saveUserInfo(
+      @RequestBody User user, @RequestHeader("Authorization") String token) {
+    try {
+      authClient.getMessage(token).getBody();
+      userService.saveUserInfo(user);
+      return ResponseEntity.ok("Successfully Update");
+    } catch (Exception e) {
+      return ResponseEntity.ok("Fail");
     }
+  }
 }

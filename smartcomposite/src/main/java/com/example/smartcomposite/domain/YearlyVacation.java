@@ -8,6 +8,6 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class YearlyVacation {
-    private Integer vacationLeft;
-    private Integer floatingDayLeft;
+  private Integer vacationLeft;
+  private Integer floatingDayLeft;
 }
