@@ -12,11 +12,12 @@ import java.nio.file.StandardCopyOption;
 
 @Component
 public class FileServiceImpl implements FileService {
-  //  private static final String FILE_DIRECTORY = "D:\\Java Project\\SmartTimeSheet-BackEnd";
-  private static final String FILE_DIRECTORY = "/Users/yanlin/Developer/SmartTimeSheet/SmartTimeSheet-FrontEnd";
+  private static final String FILE_DIRECTORY = "D:\\Java Project\\SmartTimeSheet-BackEnd";
+  //  private static final String FILE_DIRECTORY =
+  // "/Users/yanlin/Developer/SmartTimeSheet/SmartTimeSheet-FrontEnd";
 
-//  private static final String PIC_DIRECTORY =
-//          "/Users/yanlin/Developer/SmartTimeSheet/SmartTimeSheet-FrontEnd/src/assets";
+  private static final String PIC_DIRECTORY =
+      "/Users/yanlin/Developer/SmartTimeSheet/SmartTimeSheet-FrontEnd/src/assets";
 
   public void storeFile(MultipartFile file) throws IOException {
     Path filePath = Paths.get(FILE_DIRECTORY + "/" + file.getOriginalFilename());
@@ -24,7 +25,7 @@ public class FileServiceImpl implements FileService {
   }
 
   public void storePic(MultipartFile file) throws IOException {
-    Path filePath = Paths.get(FILE_DIRECTORY + "/" + file.getOriginalFilename());
+    Path filePath = Paths.get(PIC_DIRECTORY + "/" + file.getOriginalFilename());
     Files.copy(file.getInputStream(), filePath, StandardCopyOption.REPLACE_EXISTING);
   }
 }

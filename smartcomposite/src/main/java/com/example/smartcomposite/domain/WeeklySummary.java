@@ -12,21 +12,21 @@ import java.util.List;
 @Builder
 @ToString
 public class WeeklySummary {
-    private String id;
+  private String id;
 
-    private String username;
+  private String username;
 
-    private LocalDate endingDate;
+  private LocalDate endingDate;
 
-    private Double totalHours;
+  private Double totalHours;
 
-    private String submissionStatus;
+  private String submissionStatus;
 
-    private String approvalStatus;
+  private String approvalStatus;
 
-    private String comment;
+  private String comment;
 
-    private Integer year;
+  private Integer year;
 
-    private List<Day> days;
+  private List<Day> days;
 }

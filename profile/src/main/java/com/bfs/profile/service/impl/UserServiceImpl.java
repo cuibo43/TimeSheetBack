@@ -11,16 +11,15 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDao userDao;
+  @Autowired private UserDao userDao;
 
-    @Override
-    public Optional<User> getUserInfo(String username) {
-        return userDao.findByUsername(username);
-    }
+  @Override
+  public Optional<User> getUserInfo(String username) {
+    return userDao.findByUsername(username);
+  }
 
-    @Override
-    public void saveUserInfo(User user) {
-        userDao.save(user);
-    }
+  @Override
+  public void saveUserInfo(User user) {
+    userDao.save(user);
+  }
 }
