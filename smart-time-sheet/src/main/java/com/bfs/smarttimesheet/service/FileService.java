@@ -9,5 +9,4 @@ public interface FileService {
 
     void storePic(MultipartFile file) throws IOException;
 
-
 }

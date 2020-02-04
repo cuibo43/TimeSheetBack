@@ -31,14 +31,14 @@ public class UserController {
             String userName = authClient.getMessage(token).getBody();
             return userService.getUserInfo(userName);
         } catch (Exception e) {
-            return null;
+            return Optional.empty();
         }
     }
 
     @PostMapping("/updateDetail")
     @ApiOperation(value = "Save user information detail", response = ResponseEntity.class)
-    public ResponseEntity<String> saveUserInfo(@RequestBody User user
-            , @RequestHeader("Authorization") String token) {
+    public ResponseEntity<String> saveUserInfo(
+            @RequestBody User user, @RequestHeader("Authorization") String token) {
         try {
             authClient.getMessage(token).getBody();
             userService.saveUserInfo(user);

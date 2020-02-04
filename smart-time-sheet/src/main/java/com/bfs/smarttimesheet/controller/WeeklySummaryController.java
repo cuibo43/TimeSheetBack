@@ -22,8 +22,6 @@ public class WeeklySummaryController {
   @Autowired
   private AuthClient authClient;
 
-
-
   @Autowired
   public void setWeeklySummaryService(WeeklySummaryService weeklySummaryService) {
     this.weeklySummaryService = weeklySummaryService;
