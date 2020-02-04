@@ -40,19 +40,12 @@ public class JwtTokenProvider {
     Claims claims = Jwts.claims().setSubject(username);
     Date now = new Date();
     Date validity = new Date(now.getTime() + this.validityInMilliseconds);
-//    System.out.println(
-//        Jwts.builder()
-//            .setClaims(claims)
-//            .setIssuedAt(now)
-//            .setExpiration(validity)
-//            .signWith(SignatureAlgorithm.HS256, this.secretKey)
-//            .compact());
     return Jwts.builder()
-            .setClaims(claims)
-            .setIssuedAt(now)
-            .setExpiration(validity)
-            .signWith(SignatureAlgorithm.HS256, this.secretKey)
-            .compact();
+        .setClaims(claims)
+        .setIssuedAt(now)
+        .setExpiration(validity)
+        .signWith(SignatureAlgorithm.HS256, this.secretKey)
+        .compact();
   }
 
   public Authentication getAuthentication(String token) {
