@@ -25,6 +25,10 @@ spring:
           uri: lb://profile
           predicates:
             - Path=/profile/**
+        - id: smartComposite
+          uri: lb://smartComposite
+          predicates:
+            - Path=/smartComposite/**
 
 
 

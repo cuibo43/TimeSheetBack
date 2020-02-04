@@ -29,8 +29,8 @@ public class WeeklySummaryController {
 
   @PostMapping("/getSummary")
   @ApiOperation(value = "Get Weekly Summary By Id", response = WeeklySummary.class)
-  public WeeklySummary getWeeklySummaryById(
-          @RequestBody LocalDate endTime, @RequestHeader("Authorization") String token) {
+  public WeeklySummary getWeeklySummaryById(@RequestBody LocalDate endTime,
+      @RequestHeader("Authorization") String token) {
     try {
       String userName = authClient.getMessage(token).getBody();
       return weeklySummaryService.getWeeklySummaryByUsernameAndEndingDate(userName, endTime);
@@ -41,8 +41,8 @@ public class WeeklySummaryController {
 
   @PostMapping("/updateSummary")
   @ApiOperation(value = "Update Weekly Summary", response = ResponseEntity.class)
-  public ResponseEntity<String> UpdateWeeklySummary(
-      @RequestBody WeeklySummary weeklySummary, @RequestHeader("Authorization") String token) {
+  public ResponseEntity<String> UpdateWeeklySummary(@RequestBody WeeklySummary weeklySummary,
+      @RequestHeader("Authorization") String token) {
     try {
       authClient.getMessage(token).getBody();
       weeklySummaryService.updateWeeklySummary(weeklySummary);
@@ -54,8 +54,8 @@ public class WeeklySummaryController {
 
   @PostMapping("/vacationLeft")
   @ApiOperation(value = "Get available vacation left", response = YearlyVacation.class)
-  public YearlyVacation getAvailableVacation(
-      @RequestBody WeeklySummary weeklySummary, @RequestHeader("Authorization") String token) {
+  public YearlyVacation getAvailableVacation(@RequestBody WeeklySummary weeklySummary,
+      @RequestHeader("Authorization") String token) {
     try {
       String userName = authClient.getMessage(token).getBody();
       return this.weeklySummaryService.vacationLeft(userName, weeklySummary.getYear());
