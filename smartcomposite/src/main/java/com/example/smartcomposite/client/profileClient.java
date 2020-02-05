@@ -1,9 +1,7 @@
-package com.example.profilecomposite.client;
+package com.example.smartcomposite.client;
 
-import com.example.profilecomposite.domain.User;
+import com.example.smartcomposite.domain.User;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,8 +13,4 @@ public interface profileClient {
 
   @RequestMapping(method = RequestMethod.POST, value = "/profile/detail")
   Optional<User> getUserInfo(@RequestHeader("Authorization") String token);
-
-  @RequestMapping(method = RequestMethod.POST, value = "/profile/updateDetail")
-  ResponseEntity<String> saveUserInfo(
-      @RequestBody User user, @RequestHeader("Authorization") String token);
 }
