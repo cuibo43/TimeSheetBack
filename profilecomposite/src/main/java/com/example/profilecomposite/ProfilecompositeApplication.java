@@ -10,8 +10,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients
 public class ProfilecompositeApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(ProfilecompositeApplication.class, args);
-    }
-
+  public static void main(String[] args) {
+    SpringApplication.run(ProfilecompositeApplication.class, args);
+  }
 }

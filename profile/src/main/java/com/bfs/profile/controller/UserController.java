@@ -15,25 +15,24 @@ import java.util.Optional;
 @RequestMapping("/profile")
 @Api(value = "User Controller")
 public class UserController {
-    private UserService userService;
-    @Autowired
-    private AuthClient authClient;
+  private UserService userService;
+  @Autowired private AuthClient authClient;
 
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
+  @Autowired
+  public void setUserService(UserService userService) {
+    this.userService = userService;
+  }
 
-    @PostMapping("/detail")
-    @ApiOperation(value = "Get user information detail", response = User.class)
-    public Optional<User> getUserInfo(@RequestHeader("Authorization") String token) {
-        try {
-            String userName = authClient.getMessage(token).getBody();
-            return userService.getUserInfo(userName);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
+  @PostMapping("/detail")
+  @ApiOperation(value = "Get user information detail", response = User.class)
+  public Optional<User> getUserInfo(@RequestHeader("Authorization") String token) {
+    try {
+      String userName = authClient.getMessage(token).getBody();
+      return userService.getUserInfo(userName);
+    } catch (Exception e) {
+      return Optional.empty();
     }
+  }
 
 
 
@@ -48,5 +47,7 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.ok("Fail");
         }
+
     }
-}
+  }
+

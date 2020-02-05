@@ -19,8 +19,7 @@ import java.util.List;
 public class WeeklySummaryController {
   private WeeklySummaryService weeklySummaryService;
 
-  @Autowired
-  private AuthClient authClient;
+  @Autowired private AuthClient authClient;
 
   @Autowired
   public void setWeeklySummaryService(WeeklySummaryService weeklySummaryService) {
@@ -30,7 +29,7 @@ public class WeeklySummaryController {
   @PostMapping("/getSummary")
   @ApiOperation(value = "Get Weekly Summary By Id", response = WeeklySummary.class)
   public WeeklySummary getWeeklySummaryById(
-          @RequestBody LocalDate endTime, @RequestHeader("Authorization") String token) {
+      @RequestBody LocalDate endTime, @RequestHeader("Authorization") String token) {
     try {
       String userName = authClient.getMessage(token).getBody();
       return weeklySummaryService.getWeeklySummaryByUsernameAndEndingDate(userName, endTime);

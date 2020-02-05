@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
-
 @RestController
 @RequestMapping("/smartComposite")
 public class Controller {
@@ -56,4 +55,5 @@ public class Controller {
             return smartClient.getAllSummaries(username);
         }
     }
+
 }

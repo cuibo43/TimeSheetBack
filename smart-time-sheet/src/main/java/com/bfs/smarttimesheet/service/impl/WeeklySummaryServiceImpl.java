@@ -43,22 +43,21 @@ public class WeeklySummaryServiceImpl implements WeeklySummaryService {
   }
 
   public WeeklySummary getWeeklySummaryByUsernameAndEndingDate(
-          String username, LocalDate endingDate) {
+      String username, LocalDate endingDate) {
     while (!endingDate.getDayOfWeek().name().equals("SATURDAY")) {
       endingDate = endingDate.plusDays(1);
     }
     System.out.println(endingDate);
     Optional<WeeklySummary> opt =
-            weeklySummaryDao.findByUsernameAndEndingDate(username, endingDate);
+        weeklySummaryDao.findByUsernameAndEndingDate(username, endingDate);
     return opt.orElseGet(WeeklySummary::new);
   }
 
   @Override
   public List<WeeklySummary> getAllSummaries(String username) {
-      //    Optional<User> opt = userDao.findByUsername(username);
-      //    if ("admin".equalsIgnoreCase(opt.get().getRole())) {
-      //      return weeklySummaryDao.findAll();
+
       return weeklySummaryDao.findAllByUsernameOrderByEndingDateDesc(username);
+
   }
 
   @Override
