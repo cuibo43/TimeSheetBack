@@ -16,44 +16,38 @@ import java.util.List;
 @RequestMapping("/smartComposite")
 public class Controller {
 
-    @Autowired
-    private smartClient smartClient;
+  @Autowired private smartClient smartClient;
 
-    @Autowired
-    private AuthClient authClient;
+  @Autowired private AuthClient authClient;
 
-    @Autowired
-    private profileClient profileClient;
+  @Autowired private profileClient profileClient;
 
-    @PostMapping("/getSummary")
-    public WeeklySummary getWeeklySummaryById(@RequestBody LocalDate endTime, @RequestHeader("Authorization") String token) {
-            return smartClient.getWeeklySummaryById(endTime, token);
+  @PostMapping("/getSummary")
+  public WeeklySummary getWeeklySummaryById(
+      @RequestBody LocalDate endTime, @RequestHeader("Authorization") String token) {
+    return smartClient.getWeeklySummaryById(endTime, token);
+  }
+
+  @PostMapping("/updateSummary")
+  public ResponseEntity<String> UpdateWeeklySummary(
+      @RequestBody WeeklySummary weeklySummary, @RequestHeader("Authorization") String token) {
+    return smartClient.UpdateWeeklySummary(weeklySummary, token);
+  }
+
+  @PostMapping("/vacationLeft")
+  public YearlyVacation getAvailableVacation(
+      @RequestBody WeeklySummary weeklySummary, @RequestHeader("Authorization") String token) {
+    return smartClient.getAvailableVacation(weeklySummary, token);
+  }
+
+  @PostMapping("/all")
+  public List<WeeklySummary> getAllSummaries(@RequestHeader("Authorization") String token) {
+    String username = authClient.getMessage(token).getBody();
+    String role = profileClient.getUserInfo(token).get().getRole();
+    if (role.equals("admin")) {
+      return smartClient.getAdminSummaries();
+    } else {
+      return smartClient.getAllSummaries(username);
     }
-
-    @PostMapping("/updateSummary")
-    public ResponseEntity<String> UpdateWeeklySummary(
-            @RequestBody WeeklySummary weeklySummary, @RequestHeader("Authorization") String token) {
-        return smartClient.UpdateWeeklySummary(weeklySummary,token);
-
-    }
-
-    @PostMapping("/vacationLeft")
-    public YearlyVacation getAvailableVacation(
-            @RequestBody WeeklySummary weeklySummary, @RequestHeader("Authorization") String token) {
-        return smartClient.getAvailableVacation(weeklySummary,token);
-
-    }
-
-    @PostMapping("/all")
-    public List<WeeklySummary> getAllSummaries(@RequestHeader("Authorization") String token) {
-        String username = authClient.getMessage(token).getBody();
-        String role = profileClient.getUserInfo(token).get().getRole();
-        if(role.equals("admin")){
-            return smartClient.getAdminSummaries();
-        }
-        else{
-            return smartClient.getAllSummaries(username);
-        }
-    }
-
+  }
 }

@@ -56,15 +56,11 @@ public class WeeklySummaryServiceImpl implements WeeklySummaryService {
   @Override
   public List<WeeklySummary> getAllSummaries(String username) {
 
-      return weeklySummaryDao.findAllByUsernameOrderByEndingDateDesc(username);
-
+    return weeklySummaryDao.findAllByUsernameOrderByEndingDateDesc(username);
   }
 
   @Override
   public List<WeeklySummary> getAdminSummaries() {
-          return weeklySummaryDao.findAll();
+    return weeklySummaryDao.findAll();
   }
-
-
-
 }

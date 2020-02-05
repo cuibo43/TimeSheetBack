@@ -11,7 +11,6 @@ public interface WeeklySummaryDao extends MongoRepository<WeeklySummary, String>
 
   List<WeeklySummary> findAll();
 
-
   List<WeeklySummary> findAllByUsernameAndYear(String username, Integer year);
 
   List<WeeklySummary> findAllByUsernameOrderByEndingDateDesc(String username);

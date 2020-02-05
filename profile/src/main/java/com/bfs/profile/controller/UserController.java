@@ -34,20 +34,16 @@ public class UserController {
     }
   }
 
-
-
-    @PostMapping("/updateDetail")
-    @ApiOperation(value = "Save user information detail", response = ResponseEntity.class)
-    public ResponseEntity<String> saveUserInfo(
-            @RequestBody User user, @RequestHeader("Authorization") String token) {
-        try {
-            authClient.getMessage(token).getBody();
-            userService.saveUserInfo(user);
-            return ResponseEntity.ok("Successfully Update");
-        } catch (Exception e) {
-            return ResponseEntity.ok("Fail");
-        }
-
+  @PostMapping("/updateDetail")
+  @ApiOperation(value = "Save user information detail", response = ResponseEntity.class)
+  public ResponseEntity<String> saveUserInfo(
+      @RequestBody User user, @RequestHeader("Authorization") String token) {
+    try {
+      authClient.getMessage(token).getBody();
+      userService.saveUserInfo(user);
+      return ResponseEntity.ok("Successfully Update");
+    } catch (Exception e) {
+      return ResponseEntity.ok("Fail");
     }
   }
-
+}

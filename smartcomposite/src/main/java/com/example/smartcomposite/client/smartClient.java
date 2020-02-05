@@ -23,16 +23,13 @@ public interface smartClient {
   ResponseEntity<String> UpdateWeeklySummary(
       @RequestBody WeeklySummary weeklySummary, @RequestHeader("Authorization") String token);
 
+  @RequestMapping(method = RequestMethod.POST, value = "/summary/vacationLeft")
+  YearlyVacation getAvailableVacation(
+      @RequestBody WeeklySummary weeklySummary, @RequestHeader("Authorization") String token);
 
+  @RequestMapping(method = RequestMethod.POST, value = "/summary/all")
+  List<WeeklySummary> getAllSummaries(@RequestParam("userName") String userName);
 
-    @RequestMapping(method = RequestMethod.POST, value ="/summary/vacationLeft")
-    YearlyVacation getAvailableVacation(@RequestBody WeeklySummary weeklySummary, @RequestHeader("Authorization") String token);
-
-
-    @RequestMapping(method = RequestMethod.POST, value ="/summary/all")
-    List<WeeklySummary> getAllSummaries(@RequestParam("userName") String userName);
-
-    @RequestMapping(method = RequestMethod.POST, value ="/summary/admin")
-    List<WeeklySummary> getAdminSummaries();
-
+  @RequestMapping(method = RequestMethod.POST, value = "/summary/admin")
+  List<WeeklySummary> getAdminSummaries();
 }

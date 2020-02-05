@@ -63,21 +63,21 @@ public class WeeklySummaryController {
     }
   }
 
-//  @PostMapping("/all")
-//  @ApiOperation(value = "List all weekly summaries", response = Iterable.class)
-//  public List<WeeklySummary> getAllSummaries(@RequestHeader("Authorization") String token) {
-//    try {
-//      String userName = authClient.getMessage(token).getBody();
-//      return weeklySummaryService.getAllSummaries(userName);
-//    } catch (Exception e) {
-//      return null;
-//    }
-//  }
+  //  @PostMapping("/all")
+  //  @ApiOperation(value = "List all weekly summaries", response = Iterable.class)
+  //  public List<WeeklySummary> getAllSummaries(@RequestHeader("Authorization") String token) {
+  //    try {
+  //      String userName = authClient.getMessage(token).getBody();
+  //      return weeklySummaryService.getAllSummaries(userName);
+  //    } catch (Exception e) {
+  //      return null;
+  //    }
+  //  }
 
   @PostMapping("/all")
   @ApiOperation(value = "List all weekly summaries", response = Iterable.class)
   public List<WeeklySummary> getAllSummaries(@RequestParam("userName") String userName) {
-      return weeklySummaryService.getAllSummaries(userName);
+    return weeklySummaryService.getAllSummaries(userName);
   }
 
   @PostMapping("/admin")
@@ -85,7 +85,4 @@ public class WeeklySummaryController {
   public List<WeeklySummary> getAdminSummaries() {
     return weeklySummaryService.getAdminSummaries();
   }
-
-
-
 }
