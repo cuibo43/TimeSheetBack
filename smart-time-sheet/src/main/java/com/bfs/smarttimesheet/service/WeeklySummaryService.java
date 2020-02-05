@@ -14,4 +14,6 @@ public interface WeeklySummaryService {
   WeeklySummary getWeeklySummaryByUsernameAndEndingDate(String username, LocalDate endingDate);
 
   List<WeeklySummary> getAllSummaries(String username);
+
+  List<WeeklySummary> getAdminSummaries();
 }

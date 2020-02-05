@@ -35,6 +35,8 @@ public class UserController {
         }
     }
 
+
+
     @PostMapping("/updateDetail")
     @ApiOperation(value = "Save user information detail", response = ResponseEntity.class)
     public ResponseEntity<String> saveUserInfo(

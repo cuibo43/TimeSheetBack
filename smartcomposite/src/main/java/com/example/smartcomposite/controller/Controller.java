@@ -1,5 +1,7 @@
 package com.example.smartcomposite.controller;
 
+import com.example.smartcomposite.client.AuthClient;
+import com.example.smartcomposite.client.profileClient;
 import com.example.smartcomposite.client.smartClient;
 import com.example.smartcomposite.domain.WeeklySummary;
 import com.example.smartcomposite.domain.YearlyVacation;
@@ -17,6 +19,12 @@ public class Controller {
 
     @Autowired
     private smartClient smartClient;
+
+    @Autowired
+    private AuthClient authClient;
+
+    @Autowired
+    private profileClient profileClient;
 
     @PostMapping("/getSummary")
     public WeeklySummary getWeeklySummaryById(@RequestBody LocalDate endTime, @RequestHeader("Authorization") String token) {
@@ -39,7 +47,13 @@ public class Controller {
 
     @PostMapping("/all")
     public List<WeeklySummary> getAllSummaries(@RequestHeader("Authorization") String token) {
-        return smartClient.getAllSummaries(token);
-
+        String username = authClient.getMessage(token).getBody();
+        String role = profileClient.getUserInfo(token).get().getRole();
+        if(role.equals("admin")){
+            return smartClient.getAdminSummaries();
+        }
+        else{
+            return smartClient.getAllSummaries(username);
+        }
     }
 }
